@@ -2,60 +2,70 @@ let d = [
     {
         id: 1,
         name: 'Tolya',
-        description: 'dsds',
+        description: 'norm pacan',
         obj: null
     },
     {
         id: 1,
         name: 'Tolya',
-        description: 'dsds',
-        obj: { name: 'aa' }
+        description: 'norm pacan',
+        obj: { name: 'Tolya' }
     },
     {
         id: 1,
-        name: 'Tolya',
-        description: 'dsds',
-        obj: { name: 'aa', id: {1: 7} }
+        name: 'Stas',
+        description: 'Lorem',
+        obj: { name: 'Vanya', id: { 1: 7 } }
     },
     {
         id: 4,
-        name: 's',
-        description: 'd',
-        obj: { name: 'ag' }
+        name: 'Sasha',
+        description: 'desc',
+        obj: { name: 'Sasha' }
     },
     {
         id: 3,
         name: 't',
         description: 'g',
-        obj: { name: 'a', id: {1:3}}
+        obj: { name: 'a', id: 1 }
+    },
+    {
+        id: 78,
+        name: 'Tanya',
+        description: 'Hmm',
+        obj: { name: 'Vanya', id: 7 }
+    },
+    {
+        id: 78,
+        name: 'Tanya',
+        description: 'Hmm',
+        obj: { name: 'Vanya', id: 1 }
+    },
+    {
+        id: 21,
+        name: 'Vova',
+        description: 'player',
+        obj: { name: 'Nastya', id: 13 }
     }
 ];
-
-const findUniq = (obj, item) => {
+const makeCompare = (obj, item) => {
     let keys = Object.keys(obj);
     let amount = 0;
-
     for (let key of keys) {
         if ((obj[key] && typeof obj[key] === 'object') && item[key] !== null && typeof item[key] === 'object') {
-
-            findUniq(obj[key], item[key]) && amount++
+            makeCompare(obj[key], item[key]) && amount++;
         }
-        obj[key] === item[key] && amount++
+        obj[key] === item[key] && amount++;
     }
-
     return amount > 0;
-
-}
-
-const getUniq = (arr) => {
+};
+const getUniqObjects = (arr) => {
     const res = [];
     let copyArr = arr.slice();
-
-    for(let  item of arr) {
-        let find = copyArr.filter(el => findUniq(item,el))
-        find.length == 1 && res.push(item);
+    for (let item of arr) {
+        let find = copyArr.filter(el => makeCompare(item, el));
+        find.length === 1 && res.push(item);
     }
     return res;
-}
-
-console.log(getUniq(d))
+};
+let listOfUniq = getUniqObjects(d);

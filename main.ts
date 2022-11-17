@@ -28,6 +28,18 @@ let d: Array<object> = [
         obj: { name: 'Sasha' }
     },
     {
+        id: 4,
+        name: 'Sasha',
+        description: 'desc',
+        obj: { name: 'Sasha' }
+    },
+    {
+        id: 4,
+        name: 'Sasha',
+        description: 'desc',
+        obj: { name: 'Sasha' }
+    },
+    {
         id: 3,
         name: 't',
         description: 'g',
@@ -38,6 +50,12 @@ let d: Array<object> = [
         name: 'Tanya',
         description: 'Hmm',
         obj: { name: 'Vanya', id: 7}
+    },
+    {
+        id: 78,
+        name: 'Tanya',
+        description: 'Hmm',
+        obj: { name: 'Vanya', id: 1}
     },
     {
         id: 78,
@@ -72,25 +90,25 @@ const makeCompare = (obj, item) => {
     }
     return isDif;
 };
+
 const getUniqObjects = (arr) => {
 
-    const res = [];
-    let arrCopy = arr.slice();
+    const res = arr.length > 0 ? [arr[0]] : [];
 
     for (let i = 0; i <= arr.length -1; i++) {
-
-        for (let j = i; j <= arrCopy.length - 1; j++) {
-            if (makeCompare(arr[i],arr[j]) === true) {
-                res.push(...arrCopy.splice(j,1))
+        let diferents = 0;
+            for (let j = 0; j <= res.length - 1; j++) {
+                if (makeCompare(arr[i],res[j]) == true) {
+                     diferents++
+                }
             }
-
-        }
-
+            diferents === res.length && res.push(arr[i]);
     }
     return res;
 };
 
 let listOfUniq: Array<object> | [] = getUniqObjects(d);
+
 
 
 
